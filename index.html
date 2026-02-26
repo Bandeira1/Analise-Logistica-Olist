@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard Logístico Olist | Mentoria Python</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-light: #eff6ff;
+      --accent: #f59e0b;
+      --danger: #dc2626;
+      --success: #16a34a;
+      --dark: #0f172a;
+      --mid: #64748b;
+      --light: #f8fafc;
+      --border: #e2e8f0;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', system-ui, sans-serif; background: var(--light); color: var(--dark); line-height: 1.6; }
+    header { background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%); color: #fff; padding: 3rem 2rem; text-align: center; }
+    header h1 { font-size: 2.2rem; margin-bottom: 0.5rem; }
+    header p { opacity: 0.9; font-size: 1.1rem; }
+    main { max-width: 1200px; margin: -2rem auto 4rem; padding: 0 1.5rem; }
+    .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+    .kpi-card { background: #fff; border-radius: 12px; padding: 1.5rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); border-top: 4px solid var(--primary); }
+    .kpi-card.danger { border-top-color: var(--danger); }
+    .kpi-label { font-size: 0.875rem; color: var(--mid); font-weight: 600; text-transform: uppercase; }
+    .kpi-value { font-size: 2rem; font-weight: 800; margin: 0.5rem 0; }
+    .card { background: #fff; border-radius: 12px; padding: 2rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); margin-bottom: 2rem; }
+    .card h2 { font-size: 1.25rem; margin-bottom: 1.5rem; color: var(--dark); border-left: 4px solid var(--primary); padding-left: 1rem; }
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 2rem; }
+    table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+    th { text-align: left; padding: 1rem; background: var(--primary-light); color: var(--primary); font-size: 0.875rem; }
+    td { padding: 1rem; border-bottom: 1px solid var(--border); font-size: 0.9rem; }
+    .badge { padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; }
+    .badge-danger { background: #fee2e2; color: #991b1b; }
+    .badge-success { background: #dcfce7; color: #166534; }
+    .insight { background: #fef3c7; border-left: 4px solid var(--accent); padding: 1rem; border-radius: 0 8px 8px 0; margin-top: 1rem; font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Dashboard Logístico Olist</h1>
+    <p>Análise de Dados Real via Python & Pandas</p>
+  </header>
+  <main>
+    <div class="kpi-grid">
+      <div class="kpi-card danger">
+        <div class="kpi-label">Taxa de Atraso</div>
+        <div class="kpi-value">7.87%</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Entrega Média</div>
+        <div class="kpi-value">12.09 dias</div>
+      </div>
+      <div class="kpi-card danger">
+        <div class="kpi-label">Receita Impactada</div>
+        <div class="kpi-value">R$ 1.35M</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Ticket Médio</div>
+        <div class="kpi-value">R$ 160.57</div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h2>Top 10 Estados em Atraso</h2>
+        <canvas id="chartAtraso"></canvas>
+        <div class="insight">
+          <strong>Insight:</strong> O Nordeste (AL, MA, PI) lidera os atrasos percentuais, mas o maior volume financeiro em risco está no Sudeste.
+        </div>
+      </div>
+      <div class="card">
+        <h2>Impacto Financeiro (Atrasado vs No Prazo)</h2>
+        <canvas id="chartFinanceiro"></canvas>
+        <div class="insight">
+          <strong>Análise:</strong> Pedidos atrasados têm um ticket médio <strong>R$ 13.16 maior</strong> que os pedidos no prazo.
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Top 5 Estados por Receita Impactada</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Estado</th>
+            <th>Receita com Atraso (R$)</th>
+            <th>Status de Risco</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>São Paulo (SP)</td><td>R$ 385.086,94</td><td><span class="badge badge-danger">Extremo</span></td></tr>
+          <tr><td>Rio de Janeiro (RJ)</td><td>R$ 278.975,08</td><td><span class="badge badge-danger">Crítico</span></td></tr>
+          <tr><td>Minas Gerais (MG)</td><td>R$ 107.193,44</td><td><span class="badge badge-danger">Alto</span></td></tr>
+          <tr><td>Bahia (BA)</td><td>R$ 84.990,60</td><td><span class="badge badge-danger">Alto</span></td></tr>
+          <tr><td>Rio Grande do Sul (RS)</td><td>R$ 62.665,19</td><td><span class="badge badge-danger">Moderado</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h2>Detecção de Outliers (IQR)</h2>
+      <p>Análise estatística de preços fora da curva para identificar impacto na logística.</p>
+      <div class="grid-2" style="margin-top: 1rem;">
+        <div>
+          <p><strong>Taxa de Atraso Outliers:</strong> 8.24%</p>
+          <p><strong>Taxa de Atraso Normal:</strong> 7.82%</p>
+        </div>
+        <div class="insight">
+          Pedidos com preços muito elevados (Outliers) têm uma tendência levemente superior de atraso, sugerindo maior complexidade logística.
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const ctxAtraso = document.getElementById('chartAtraso');
+    new Chart(ctxAtraso, {
+      type: 'bar',
+      data: {
+        labels: ['AL', 'MA', 'PI', 'CE', 'SE', 'BA', 'RJ', 'TO', 'ES', 'PA'],
+        datasets: [{
+          label: 'Taxa de Atraso (%)',
+          data: [23.00, 18.88, 15.35, 14.67, 14.57, 13.52, 12.95, 12.50, 12.00, 12.00],
+          backgroundColor: '#dc2626'
+        }]
+      }
+    });
+
+    const ctxFin = document.getElementById('chartFinanceiro');
+    new Chart(ctxFin, {
+      type: 'doughnut',
+      data: {
+        labels: ['Receita Saudável', 'Receita com Atraso'],
+        datasets: [{
+          data: [91.47, 8.53],
+          backgroundColor: ['#16a34a', '#dc2626']
+        }]
+      }
+    });
+  </script>
+</body>
+</html>
