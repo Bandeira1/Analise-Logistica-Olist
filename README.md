@@ -186,7 +186,7 @@ Os gráficos gerados pelo script estão disponíveis na pasta [`/Graficos`](./Gr
 | `sazonalidade.png` | Taxa mensal de atraso ao longo de todo o período analisado |
 | `gargalos.png` | Tempos médios de aprovação e despacho |
 
-Dashboard interativo: [Acesse o Looker Studio](#) *(link a ser inserido após publicação)*
+Dashboard interativo: [Acesse o Looker Studio](https://lookerstudio.google.com/reporting/465991c2-4e21-4e44-8067-efa2f1b99d33)
 
 ---
 
