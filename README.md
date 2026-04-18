@@ -53,7 +53,7 @@ O projeto utilizou **3 arquivos CSV**:
 | `olist_orders_dataset.csv` | Datas de compra, aprovação, despacho e entrega |
 | `olist_order_items_dataset.csv` | Preço e frete por item de cada pedido |
 
-Download feito diretamente pelo Kaggle (sem API). Os arquivos foram salvos na pasta `Banco/` e carregados via `pandas.read_csv()`, com validação de nulos, tipos e consistência entre tabelas.
+Download feito diretamente pelo Kaggle. Os arquivos foram salvos na pasta `Banco/` e carregados via `pandas.read_csv()`, com validação de nulos, tipos e consistência entre tabelas.
 
 ---
 
@@ -110,9 +110,21 @@ Download feito diretamente pelo Kaggle (sem API). Os arquivos foram salvos na pa
 
 ## Dashboard
 
-Dashboard interativo desenvolvido no Looker Studio com KPIs, ranking de atraso por estado e evolução mensal. Filtros por estado e período para exploração livre.
+Dashboard interativo desenvolvido no **Looker Studio** com duas páginas:
 
-🔗 [Acessar o dashboard](https://datastudio.google.com/reporting/465991c2-4e21-4e44-8067-efa2f1b99d33/page/svZtF)
+**Página 1 — Visão Geral**
+- 4 scorecards com os KPIs principais (receita total, receita em risco, taxa de atraso, dias de despacho)
+- Evolução mensal da taxa de atraso (2017–2018)
+- Taxa de atraso por estado — top 10
+- Taxa de retorno: impacto do atraso na 1ª compra
+
+**Página 2 — Impacto Financeiro**
+- Receita impactada por atrasos — top 10 estados (R$)
+- Ticket médio comparativo: no prazo vs. atrasado
+
+Filtros interativos por **Estado** e **Mês/Ano** disponíveis em ambas as páginas.
+
+🔗 [Acessar o dashboard](https://datastudio.google.com/reporting/465991c2-4e21-4e44-8067-efa2f1b99d33)
 
 ---
 
@@ -153,6 +165,14 @@ python analise_logistica_usuario.py
 ```
 
 As visualizações serão salvas automaticamente na pasta `Graficos/`.
+
+Para gerar os CSVs do Looker Studio:
+
+```bash
+python exportar_looker.py
+```
+
+Os arquivos serão salvos em `Banco/looker/`.
 
 ---
 
