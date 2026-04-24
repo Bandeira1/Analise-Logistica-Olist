@@ -1,6 +1,6 @@
 # Análise Estratégica de Logística — Olist 🚚
 
-Projeto desenvolvido como parte da parceria com a **Semantix**, investigando como atrasos na entrega afetam a receita e a fidelização de clientes no e-commerce brasileiro.
+Projeto desenvolvido em parceria com a **Semantix**, investigando como atrasos na entrega afetam a receita e a fidelização de clientes no e-commerce brasileiro.
 
 ---
 
@@ -23,7 +23,7 @@ Entregar no prazo parece simples, mas no Brasil — com suas dimensões continen
 
 > **Onde, quando e por que os pedidos atrasam? E qual é o custo disso para o negócio?**
 
-Usando dados públicos da Olist, analisamos pedidos reais feitos entre 2016 e 2018 para responder isso com dados — não com achismo.
+Usando dados da Olist, analisamos pedidos reais feitos entre 2016 e 2018 para responder isso com dados — não com achismo.
 
 ---
 
@@ -39,7 +39,7 @@ Atraso não é só inconveniente para o cliente, é prejuízo direto para o neg�
 
 ## Coleta de Dados
 
-Os dados vieram do dataset público da Olist, disponível no Kaggle:
+Os dados vieram do dataset da Olist, disponível no Kaggle:
 
 🔗 [Brazilian E-Commerce Public Dataset by Olist](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce)
 
@@ -53,7 +53,7 @@ O projeto utilizou **3 arquivos CSV**:
 | `olist_orders_dataset.csv` | Datas de compra, aprovação, despacho e entrega |
 | `olist_order_items_dataset.csv` | Preço e frete por item de cada pedido |
 
-Download feito diretamente pelo Kaggle. Os arquivos foram salvos na pasta `Banco/` e carregados via `pandas.read_csv()`, com validação de nulos, tipos e consistência entre tabelas.
+Os arquivos foram carregados via `pandas.read_csv()`, com validação de nulos, tipos e consistência entre tabelas.
 
 ---
 
@@ -102,7 +102,7 @@ Download feito diretamente pelo Kaggle. Os arquivos foram salvos na pasta `Banco
 
 **Quem atrasa na primeira compra, não volta.** A taxa de retorno cai 20% quando o cliente tem um atraso logo no primeiro pedido.
 
-**Os pedidos que atrasam são os mais caros.** Ticket médio dos atrasados: R$ 150,58 vs. R$ 137,42 dos no prazo. Os clientes mais valiosos estão sendo os mais prejudicados.
+**Os pedidos que atrasam são os mais caros.** Ticket médio dos atrasados: R$ 172,71 vs. R$ 158,69 dos no prazo. Os clientes mais valiosos estão sendo os mais prejudicados.
 
 **Despacho demora 2,3 dias em média** entre aprovação do pagamento e envio ao transportador. Esse é um gargalo interno e controlável.
 
@@ -110,21 +110,39 @@ Download feito diretamente pelo Kaggle. Os arquivos foram salvos na pasta `Banco
 
 ## Dashboard
 
-Dashboard interativo desenvolvido no **Looker Studio** com duas páginas:
+Dashboard interativo desenvolvido no **Looker Studio** com duas páginas.
 
-**Página 1 — Visão Geral**
+🔗 [Acessar o dashboard completo](https://datastudio.google.com/reporting/465991c2-4e21-4e44-8067-efa2f1b99d33)
+
+---
+
+### Página 1 — Visão Geral
+
+> KPIs principais, evolução mensal da taxa de atraso, distribuição por estado e impacto na retenção de clientes.
+
+![Dashboard - Visão Geral](images/dashboard_pagina1.png)
+
+**O que essa página mostra:**
 - 4 scorecards com os KPIs principais (receita total, receita em risco, taxa de atraso, dias de despacho)
 - Evolução mensal da taxa de atraso (2017–2018)
 - Taxa de atraso por estado — top 10
 - Taxa de retorno: impacto do atraso na 1ª compra
 
-**Página 2 — Impacto Financeiro**
+---
+
+### Página 2 — Impacto Financeiro
+
+> Receita comprometida por estado e comparativo de ticket médio entre pedidos no prazo e atrasados.
+
+![Dashboard - Impacto Financeiro](images/dashboard_pagina2.png)
+
+**O que essa página mostra:**
 - Receita impactada por atrasos — top 10 estados (R$)
 - Ticket médio comparativo: no prazo vs. atrasado
 
-Filtros interativos por **Estado** e **Mês/Ano** disponíveis em ambas as páginas.
+---
 
-🔗 [Acessar o dashboard](https://datastudio.google.com/reporting/465991c2-4e21-4e44-8067-efa2f1b99d33)
+Filtros interativos por **Estado** e **Mês/Ano** disponíveis em ambas as páginas.
 
 ---
 
@@ -176,4 +194,4 @@ Os arquivos serão salvos em `Banco/looker/`.
 
 ---
 
-*Projeto de Parceria Semantix — Data Analytics & Business Intelligence*
+*Projeto desenvolvido em parceria com a Semantix — Data Analytics & Business Intelligence*
